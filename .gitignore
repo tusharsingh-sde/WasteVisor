@@ -1,0 +1,8 @@
+# .gitignore
+node_modules/
+.env
+*.log
+# Exclude internal documentation not needed for open source
+docs/
+PLAN.md
+PROJECT_CONTEXT.md

@@ -1,0 +1,22 @@
+
+{
+  "default": {
+    "actions": ["reuse", "repair", "resale", "donation", "compost", "recycling", "authorized_disposal"],
+    "hazardOverride": ["authorized_disposal"]
+  },
+  "e_waste": {
+    "hazards": {
+      "battery": ["authorized_disposal"]
+    },
+    "actions": ["repair", "resale", "authorized_disposal"]
+  },
+  "organic": {
+    "actions": ["compost", "organic_disposal"]
+  },
+  "paper": {
+    "actions": ["reuse", "recycling"]
+  },
+  "glass": {
+    "actions": ["reuse", "recycling"]
+  }
+}
