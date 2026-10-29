@@ -35,11 +35,12 @@ Decision records for the backend-only hackathon phase. Implementation has not st
 
 ## ADR-005 — Start with local persistence
 
-- **Status:** Proposed; SQLite preferred, JSON as a schedule fallback.
+- **Status:** Implemented in Slice 5 using SQLite.
 - **Decision:** Store completed actions locally and derive history and impact totals from those records. No auth or distributed database.
 - **Alternatives:** MongoDB/cloud database; no persistence.
 - **Why:** The hero flow requires completion to update totals, while local storage avoids infrastructure setup.
 - **Trade-off:** Prototype history is single-instance/single-user and not a production multi-user data store.
+- **Implementation:** Impact totals are derived by aggregating stored completed-action rows; client-supplied impact values are not accepted.
 
 ## ADR-006 — Make demo mode deterministic
 

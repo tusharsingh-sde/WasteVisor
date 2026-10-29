@@ -23,8 +23,10 @@ Identify the uploaded item and return a strict structured result. In demo mode, 
 
 **Request:** `multipart/form-data`
 
-- `image` (required): supported image upload.
-- `sample_id` (optional): sample identifier listed by `/api/demo/samples`; honored for cached result selection when demo mode is enabled.
+- `image` (required): JPEG, PNG, or WebP upload, maximum 5 MiB.
+- `sample_id` (optional multipart text field): sample identifier listed by `/api/demo/samples`; honored for cached result selection when demo mode is enabled.
+
+If the model is unavailable or the image cannot be identified confidently, the endpoint still returns `200` with `confidence` below `0.5`, `needs_confirmation: true`, and conservative `safe_guidance` where appropriate. AWS/provider details are never included in the response.
 
 **Response `200`:**
 
