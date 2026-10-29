@@ -12,7 +12,7 @@ flowchart LR
   API --> SC[ Pydantic v2 schemas ]
   API --> ID[Identify service]
   ID --> VP[Vision provider interface]
-  VP --> LLM[Vision-capable model SDK/httpx]
+  VP --> LLM[boto3 Bedrock Converse]
   ID --> KB[Validated item knowledge base]
   API --> R[Rules-based ranking]
   R --> KB
@@ -20,7 +20,7 @@ flowchart LR
   API --> IMP[Impact calculator]
   IMP --> FACT[Documented factor table]
   API --> HIST[History service]
-  HIST --> DB[(SQLite / JSON store)]
+  HIST --> DB[(SQLite / SQLAlchemy)]
   API --> DEMO[Cached demo samples]
 ```
 
@@ -33,17 +33,17 @@ flowchart LR
 5. `/api/actions/complete` persists the chosen action. `/api/history` and `/api/impact` read persisted events and derived totals.
 6. With `DEMO_MODE=true`, identify requests for supported hero samples use cached responses. `/api/demo/samples` exposes sample identifiers and labels. With demo mode off, identification uses the live provider.
 
-## Proposed folder structure
+## Implemented folder structure
 
 ```text
 backend/
   app/
     main.py                 # FastAPI app, lifespan, CORS, router registration
-    api/                     # identify, recommend, actions, history, impact, items, health, demo
+    api/                     # identify, recommend, tracking, items, health, demo
     schemas/                 # Pydantic v2 request and response contracts
-    services/                # vision, ranking, explain, impact, history
+    services/                # vision, ranking, impact, history
     core/                    # settings, logging, error handling
-    data/                    # validated knowledge_base.yaml, impact_factors.yaml + loader
+    data/                    # validated catalog/factors and cached fixture loader
   samples/                   # demo images and cached identification JSON
   tests/                     # pytest unit and API tests
   scripts/demo_flow.py
@@ -66,7 +66,7 @@ At application startup, `app/data/loader.py` validates `knowledge_base.yaml` and
 
 ## Storage and configuration
 
-Use SQLite for completed actions if it fits the schedule; local JSON is the documented fallback. No auth, microservices, MongoDB, or heavy infrastructure. Read secrets and feature flags from environment configuration and ship only `.env.example`. Enable localhost CORS for a future frontend.
+Use SQLite via synchronous SQLAlchemy for completed actions. There is no auth, microservice, MongoDB, or heavy infrastructure. Read settings from process environment only and ship `.env.example` as a variable template. Enable localhost CORS for a future frontend.
 
 ## Trust and safety constraints
 

@@ -1,10 +1,11 @@
 # WasteVisor API Contract (Design)
 
-**Status:** Phase 0 proposal; implementation must generate matching FastAPI/Pydantic v2 OpenAPI schemas. Base path `/api`. JSON uses `snake_case`. The future frontend can use `/docs` for the live OpenAPI document.
+**Status:** Implemented contract. FastAPI/Pydantic v2 generates the live OpenAPI schemas. Base path `/api`; JSON uses `snake_case`. The future frontend can use `/docs` for the live OpenAPI document.
 
 ## Shared conventions
 
 - Success responses are typed JSON objects. `POST /api/identify` accepts `multipart/form-data` with field `image` and optional `sample_id` for deterministic demo selection.
+- Uploads accept JPEG, PNG, or WebP and are limited to 5 MiB.
 - Conditions: `working | damaged | dead | unknown`.
 - Every impact/value number is an estimate. Impact objects include `is_estimate: true` and a factor/source note.
 - All error responses use `{"error":{"code":"...","message":"..."}}`.
@@ -12,10 +13,10 @@
 Example error:
 
 ```json
-{"error":{"code":"invalid_image","message":"Upload a supported image file."}}
+{"error":{"code":"bad_request","message":"Upload a JPEG, PNG, or WebP image."}}
 ```
 
-Typical statuses: `400` malformed request, `413` image too large, `422` request validation, `404` unknown record/sample, `500` unexpected server error, `503` unavailable required provider. Do not expose stack traces, credentials, or provider internals.
+Statuses used by the current API: `400` invalid/empty image, `413` image too large, `422` request or action validation, `404` unsupported completion item or unknown demo sample, and `500` unexpected server error. Model failure returns a safe low-confidence `200` response. Do not expose stack traces, credentials, or provider internals.
 
 ## `POST /api/identify`
 
@@ -99,7 +100,7 @@ Return deterministic, rules-ranked actions for a user-confirmed identification. 
 }
 ```
 
-Impact and value fields are estimates and may be `null` when the factor table has no defensible value. Safety warnings may be `null` when none is required.
+Impact and value fields are estimates and may be `null` when the factor table has no defensible value. Safety warnings may be `null` when none is required. The current item-level factor row is applied to each ranked option; these are prototype estimates, not action-specific measured outcomes.
 
 ## `POST /api/actions/complete`
 

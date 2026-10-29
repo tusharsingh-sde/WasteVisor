@@ -1,6 +1,6 @@
 # WasteVisor Backend Plan — 24 Hours
 
-**Current phase:** Slices 1–4 complete; Slice 5 in progress.  
+**Current phase:** Slices 1–7 complete.  
 **Constraint:** Python 3.11+ / FastAPI / Pydantic v2 in fresh `backend/`; existing Node/React files stay untouched.  
 **Demo goal:** smartphone identify → recommend → complete → updated estimated impact.
 
@@ -40,8 +40,8 @@
 
 ### Slice 7 — README and final verification
 
-- [ ] Add backend README with quick setup, environment variables, demo instructions, endpoint table, and limitations.
-- [ ] Run pytest, Ruff, mypy, and demo script; sync docs to actual behavior.
+- [x] Add backend README with quick setup, environment variables, demo instructions, endpoint table, and limitations.
+- [x] Run pytest, Ruff, mypy, and demo script; sync docs to actual behavior.
 
 ## Cut-list if schedule slips
 

@@ -45,22 +45,23 @@ Decision records for the backend-only hackathon phase. Implementation has not st
 ## ADR-006 — Make demo mode deterministic
 
 - **Status:** Implemented in Slice 6.
-- **Decision:** `DEMO_MODE=true` serves cached results for smartphone, food scraps, and used battery samples; include 3–4 local sample images and `/api/demo/samples`.
+- **Decision:** `DEMO_MODE=true` serves cached results for smartphone, food scraps, and used battery samples; ship three local sample images and `/api/demo/samples`.
 - **Alternatives:** Depend on live model/network for recording; mock every request invisibly.
 - **Why:** The recorded demo must work offline and repeat reliably while retaining a live path when demo mode is disabled.
 - **Trade-off:** Demo results are curated fixtures and must be visibly identifiable as sample output.
 
 ## ADR-007 — Document and label estimates
 
-- **Status:** Implemented in Slices 2–3; API response integration is pending.
+- **Status:** Implemented in Slices 2–3 and 6.
 - **Decision:** Keep value/impact factors in a documented table with source or assumption per row. Return figures with `is_estimate: true`; use null rather than unsupported precision.
 - **Alternatives:** Hard-code plausible-looking constants in ranking code; omit provenance.
 - **Why:** Prevents estimates from being mistaken for measured facts and makes assumptions auditable.
 - **CO₂e assumption:** `kg_diverted` estimates the mass kept out of mixed disposal. For reuse/resale of durable goods, `co2e_saved_kg` estimates possible avoided new-item manufacturing; it is not calculated by multiplying the item's mass. Material recovery and compost rows use separate illustrative processing assumptions, and medicine has no carbon credit. These estimates are not measured lifecycle results or action-specific measurements.
+- **Implementation note:** Both `method_note` and each item row's `source_note` in `backend/app/data/impact_factors.yaml` repeat this distinction so the assumption travels with returned estimates.
 
 ## ADR-008 — Keep the initial API narrow
 
-- **Status:** Proposed contract in `docs/api.md`.
+- **Status:** Implemented in Slices 1–6; contract is documented in `docs/api.md`.
 - **Decision:** Expose identify, recommend, action completion, history, impact, item catalog, health, and demo sample listing endpoints with one error envelope.
 - **Alternatives:** General-purpose waste marketplace, user accounts, provider integrations, or location search.
 - **Why:** These endpoints support the requested identify → recommend → complete → impact demo without heavy infrastructure.

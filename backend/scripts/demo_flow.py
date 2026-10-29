@@ -70,3 +70,7 @@ if __name__ == "__main__":
             f"WasteVisor demo API error ({error.get('code', exc.response.status_code)}): "
             f"{error.get('message', 'Request failed')}"
         ) from None
+    except httpx.RequestError:
+        raise SystemExit(
+            f"Could not connect to WasteVisor at {BASE_URL}. Start the API server first."
+        ) from None

@@ -24,7 +24,6 @@ class Settings(BaseSettings):
     cors_origins: list[str] = Field(
         default_factory=lambda: ["http://localhost:3000", "http://127.0.0.1:3000"]
     )
-    vision_max_retries: int = Field(default=1, ge=0, le=1)
     max_upload_size_bytes: int = Field(default=5 * 1024 * 1024, gt=0)
 
     @field_validator("cors_origins", mode="before")
