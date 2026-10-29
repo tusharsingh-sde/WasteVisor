@@ -1,0 +1,173 @@
+version: 1
+actions:
+  reuse: {label: Reuse}
+  resale: {label: Resale}
+  repair: {label: Repair}
+  donate_refurbish: {label: Donate or refurbish}
+  compost: {label: Compost}
+  recycling: {label: Recycle}
+  authorized_disposal: {label: Authorized disposal}
+  hazardous_collection: {label: Special or hazardous collection}
+  used_cooking_oil_collection: {label: Used cooking oil collection}
+  medicine_takeback: {label: Pharmacy or authorized medicine take-back}
+
+# Priority 1 is the best next action for that item and condition.
+rule_sets:
+  phone_working:
+    - {action: resale, priority: 1, reason_code: WORKING_DEVICE_VALUE_RECOVERY}
+    - {action: reuse, priority: 2, reason_code: EXTEND_USEFUL_LIFE}
+    - {action: donate_refurbish, priority: 3, reason_code: FUNCTIONAL_DEVICE_DONATION}
+    - {action: repair, priority: 4, reason_code: REPAIR_IF_NEEDED}
+    - {action: recycling, priority: 5, reason_code: LAST_RESORT_MATERIAL_RECOVERY}
+  electronic_working:
+    - {action: reuse, priority: 1, reason_code: EXTEND_USEFUL_LIFE}
+    - {action: resale, priority: 2, reason_code: FUNCTIONAL_DEVICE_VALUE_RECOVERY}
+    - {action: donate_refurbish, priority: 3, reason_code: FUNCTIONAL_DEVICE_DONATION}
+    - {action: repair, priority: 4, reason_code: REPAIR_IF_NEEDED}
+    - {action: authorized_disposal, priority: 5, reason_code: LAST_RESORT_E_WASTE}
+  electronic_damaged:
+    - {action: repair, priority: 1, reason_code: REPAIR_EXTENDS_USEFUL_LIFE}
+    - {action: donate_refurbish, priority: 2, reason_code: REFURBISH_IF_REPAIR_UNSUITABLE}
+    - {action: authorized_disposal, priority: 3, reason_code: SAFE_E_WASTE_ROUTE}
+  electronic_dead:
+    - {action: authorized_disposal, priority: 1, reason_code: AUTHORIZED_E_WASTE_REQUIRED}
+    - {action: repair, priority: 2, reason_code: REPAIR_ASSESSMENT_IF_SAFE}
+  hazardous:
+    - {action: hazardous_collection, priority: 1, reason_code: SPECIAL_HANDLING_REQUIRED}
+  bulb_working:
+    - {action: reuse, priority: 1, reason_code: EXTEND_USEFUL_LIFE}
+    - {action: donate_refurbish, priority: 2, reason_code: SAFE_FUNCTIONAL_REUSE}
+    - {action: recycling, priority: 3, reason_code: MATERIAL_RECOVERY}
+  bulb_damaged:
+    - {action: hazardous_collection, priority: 1, reason_code: PREVENT_BULB_HAZARD}
+    - {action: recycling, priority: 2, reason_code: SAFE_MATERIAL_RECOVERY}
+  recycle:
+    - {action: recycling, priority: 1, reason_code: MATERIAL_RECOVERY}
+  cardboard_working:
+    - {action: reuse, priority: 1, reason_code: REUSE_CONTAINER}
+    - {action: donate_refurbish, priority: 2, reason_code: PASS_ON_USABLE_BOX}
+    - {action: recycling, priority: 3, reason_code: MATERIAL_RECOVERY}
+  paper_working:
+    - {action: reuse, priority: 1, reason_code: REUSE_PAPER}
+    - {action: compost, priority: 2, reason_code: COMPOSTABLE_PAPER}
+    - {action: recycling, priority: 3, reason_code: MATERIAL_RECOVERY}
+  paper_damaged:
+    - {action: compost, priority: 1, reason_code: COMPOST_UNCOATED_PAPER}
+    - {action: recycling, priority: 2, reason_code: MATERIAL_RECOVERY}
+  clothing_working:
+    - {action: reuse, priority: 1, reason_code: EXTEND_TEXTILE_USE}
+    - {action: resale, priority: 2, reason_code: USABLE_TEXTILE_VALUE_RECOVERY}
+    - {action: donate_refurbish, priority: 3, reason_code: DONATE_CLEAN_CLOTHING}
+    - {action: repair, priority: 4, reason_code: REPAIR_TEXTILE}
+    - {action: recycling, priority: 5, reason_code: TEXTILE_RECOVERY}
+  clothing_damaged:
+    - {action: repair, priority: 1, reason_code: REPAIR_TEXTILE}
+    - {action: donate_refurbish, priority: 2, reason_code: REFURBISH_OR_RAG_USE}
+    - {action: recycling, priority: 3, reason_code: TEXTILE_RECOVERY}
+  organic:
+    - {action: compost, priority: 1, reason_code: COMPOST_ORGANIC_MATERIAL}
+  oil:
+    - {action: used_cooking_oil_collection, priority: 1, reason_code: NEVER_POUR_OIL_IN_DRAIN}
+  medicine:
+    - {action: medicine_takeback, priority: 1, reason_code: AUTHORIZED_MEDICINE_HANDLING}
+  furniture_working:
+    - {action: reuse, priority: 1, reason_code: EXTEND_FURNITURE_USE}
+    - {action: resale, priority: 2, reason_code: USABLE_FURNITURE_VALUE_RECOVERY}
+    - {action: donate_refurbish, priority: 3, reason_code: DONATE_USABLE_FURNITURE}
+    - {action: repair, priority: 4, reason_code: REPAIR_FURNITURE}
+    - {action: authorized_disposal, priority: 5, reason_code: BULKY_WASTE_ROUTE}
+  furniture_damaged:
+    - {action: repair, priority: 1, reason_code: REPAIR_FURNITURE}
+    - {action: resale, priority: 2, reason_code: SALVAGEABLE_FURNITURE}
+    - {action: donate_refurbish, priority: 3, reason_code: REFURBISH_FURNITURE}
+    - {action: authorized_disposal, priority: 4, reason_code: BULKY_WASTE_ROUTE}
+  furniture_dead:
+    - {action: donate_refurbish, priority: 1, reason_code: SALVAGE_PARTS_OR_MATERIAL}
+    - {action: authorized_disposal, priority: 2, reason_code: BULKY_WASTE_ROUTE}
+
+items:
+  old_smartphone:
+    display_name: Old smartphone
+    category: e_waste
+    variants: [smartphone, mobile phone]
+    hazard_flags: [contains_battery, swollen_battery, damaged_battery]
+    condition_rules: {working: phone_working, damaged: electronic_damaged, dead: electronic_dead, unknown: electronic_dead}
+  computer_accessories:
+    display_name: Laptop, charger, or cables
+    category: e_waste
+    variants: [laptop, charger, power adapter, cable]
+    hazard_flags: [contains_battery, damaged_battery, exposed_wires]
+    condition_rules: {working: electronic_working, damaged: electronic_damaged, dead: electronic_dead, unknown: electronic_dead}
+  household_battery:
+    display_name: Household battery (AA or lithium-ion)
+    category: hazardous
+    variants: [AA battery, alkaline battery, lithium-ion battery, rechargeable battery]
+    hazard_flags: [contains_battery, lithium_ion, leaking, swollen_battery]
+    condition_rules: {working: hazardous, damaged: hazardous, dead: hazardous, unknown: hazardous}
+  household_bulb:
+    display_name: CFL or LED bulb
+    category: special_waste
+    variants: [CFL bulb, LED bulb, compact fluorescent lamp]
+    hazard_flags: [mercury, broken_glass]
+    condition_rules: {working: bulb_working, damaged: bulb_damaged, dead: bulb_damaged, unknown: hazardous}
+  pet_bottle:
+    display_name: PET bottle
+    category: plastic
+    variants: [PET bottle, plastic drink bottle]
+    hazard_flags: []
+    condition_rules: {working: recycle, damaged: recycle, dead: recycle, unknown: recycle}
+  glass_bottle:
+    display_name: Glass bottle
+    category: glass
+    variants: [glass jar, glass bottle]
+    hazard_flags: [broken_glass]
+    condition_rules: {working: cardboard_working, damaged: recycle, dead: recycle, unknown: recycle}
+  cardboard_box:
+    display_name: Cardboard box
+    category: paper
+    variants: [cardboard box, carton]
+    hazard_flags: []
+    condition_rules: {working: cardboard_working, damaged: recycle, dead: recycle, unknown: recycle}
+  paper:
+    display_name: Newspaper or paper
+    category: paper
+    variants: [newspaper, office paper, magazine]
+    hazard_flags: []
+    condition_rules: {working: paper_working, damaged: paper_damaged, dead: paper_damaged, unknown: recycle}
+  clothing:
+    display_name: Old clothes
+    category: textile
+    variants: [clothing, garment, fabric]
+    hazard_flags: []
+    condition_rules: {working: clothing_working, damaged: clothing_damaged, dead: recycle, unknown: recycle}
+  food_scraps:
+    display_name: Food scraps
+    category: organic
+    variants: [vegetable scraps, fruit scraps, cooked food scraps]
+    hazard_flags: [spoiled_food]
+    condition_rules: {working: organic, damaged: organic, dead: organic, unknown: organic}
+  cooking_oil:
+    display_name: Used cooking oil
+    category: household_liquid
+    variants: [used cooking oil, frying oil]
+    hazard_flags: [hot_liquid]
+    condition_rules: {working: oil, damaged: oil, dead: oil, unknown: oil}
+  medicine_strips:
+    display_name: Medicine strips or expired medicine
+    category: pharmaceutical
+    variants: [blister pack, medicine strip, expired medicine]
+    hazard_flags: [pharmaceutical]
+    condition_rules: {working: medicine, damaged: medicine, dead: medicine, unknown: medicine}
+  small_appliance:
+    display_name: Small appliance
+    category: e_waste
+    variants: [toaster, kettle, mixer, small appliance]
+    hazard_flags: [contains_battery, exposed_wires]
+    condition_rules: {working: electronic_working, damaged: electronic_damaged, dead: electronic_dead, unknown: electronic_dead}
+  furniture:
+    display_name: Furniture
+    category: bulky_waste
+    variants: [chair, table, shelf, furniture]
+    hazard_flags: []
+    condition_rules: {working: furniture_working, damaged: furniture_damaged, dead: furniture_dead, unknown: furniture_dead}
+

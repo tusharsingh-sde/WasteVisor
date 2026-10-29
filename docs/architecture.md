@@ -43,7 +43,7 @@ backend/
     schemas/                 # Pydantic v2 request and response contracts
     services/                # vision, ranking, explain, impact, history
     core/                    # settings, logging, error handling
-    data/                    # validated knowledge_base.yaml, impact_factors.yaml
+    data/                    # validated knowledge_base.yaml, impact_factors.yaml + loader
   samples/                   # demo images and cached identification JSON
   tests/                     # pytest unit and API tests
   scripts/demo_flow.py
@@ -55,6 +55,8 @@ backend/
 ## API surface
 
 The designed contract is documented in [api.md](api.md). It includes `POST /api/identify`, `POST /api/recommend`, `POST /api/actions/complete`, `GET /api/history`, `GET /api/impact`, `GET /api/items`, `GET /api/health`, and `GET /api/demo/samples`. All errors use the same JSON envelope; FastAPI-generated `/docs` must match these typed schemas.
+
+At application startup, `app/data/loader.py` validates `knowledge_base.yaml` and `impact_factors.yaml` with Pydantic v2 and checks that both files cover the same 14 item identifiers. Each item-condition points to an explicit rule set with ordered priorities and stable reason codes. Every factor row includes a written source/assumption note.
 
 ## Storage and configuration
 

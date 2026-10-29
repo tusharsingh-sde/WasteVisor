@@ -1,6 +1,8 @@
 """WasteVisor FastAPI application factory."""
 
 import logging
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
@@ -10,6 +12,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app.api.health import router as health_router
 from app.core.config import get_settings
+from app.data.loader import load_startup_data
 from app.schemas.errors import ErrorDetail, ErrorEnvelope
 
 logger = logging.getLogger("wastevisor")
@@ -18,6 +21,12 @@ logger = logging.getLogger("wastevisor")
 def create_app() -> FastAPI:
     """Build the API with WasteVisor metadata, CORS, and consistent error handlers."""
     settings = get_settings()
+
+    @asynccontextmanager
+    async def lifespan(application: FastAPI) -> AsyncIterator[None]:
+        application.state.knowledge_base, application.state.impact_factors = load_startup_data()
+        yield
+
     application = FastAPI(
         title="WasteVisor API",
         summary="WasteVisor household waste-management advisor API",
@@ -25,6 +34,7 @@ def create_app() -> FastAPI:
             "Know Before You Throw. Identify household waste and recommend its best next action."
         ),
         version="0.1.0",
+        lifespan=lifespan,
     )
     application.add_middleware(
         CORSMiddleware,

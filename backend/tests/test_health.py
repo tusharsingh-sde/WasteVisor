@@ -41,3 +41,13 @@ def test_errors_use_shared_error_envelope() -> None:
         }
     }
 
+
+def test_startup_loads_validated_catalog_and_estimate_factors() -> None:
+    client = TestClient(create_app())
+
+    with client:
+        assert len(client.app.state.knowledge_base.items) == 14
+        assert set(client.app.state.knowledge_base.items) == set(
+            client.app.state.impact_factors.factors
+        )
+
