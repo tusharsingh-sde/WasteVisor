@@ -35,8 +35,8 @@
 
 ### Slice 6 — Deterministic demo path
 
-- [ ] Add cached smartphone, food-scrap, and used-battery responses plus 3–4 small sample images.
-- [ ] Add `/api/demo/samples` and readable `scripts/demo_flow.py` for identify → recommend → complete → impact.
+- [x] Add cached smartphone, food-scrap, and used-battery responses plus sample images.
+- [x] Add `/api/demo/samples` and readable `scripts/demo_flow.py` for identify → recommend → complete → impact.
 
 ### Slice 7 — README and final verification
 

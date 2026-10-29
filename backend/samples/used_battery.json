@@ -1,0 +1,14 @@
+{
+  "id": "used_battery",
+  "label": "Used AA household battery",
+  "image_filename": "used_battery.jpg",
+  "identification": {
+    "item": "household_battery",
+    "material": ["steel", "alkaline cell"],
+    "category": "hazardous",
+    "condition": "dead",
+    "hazard_flags": ["contains_battery"],
+    "confidence": 0.96,
+    "needs_confirmation": false
+  }
+}

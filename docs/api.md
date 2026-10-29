@@ -219,7 +219,7 @@ List sample choices available to the future frontend. This route is available re
   "samples": [
     {"id":"smartphone_working","item":"old_smartphone","label":"Working old smartphone","image_url":"/samples/smartphone_working.jpg"},
     {"id":"food_scraps","item":"food_scraps","label":"Food scraps","image_url":"/samples/food_scraps.jpg"},
-    {"id":"used_battery","item":"battery_li_ion","label":"Used lithium-ion battery","image_url":"/samples/used_battery.jpg"}
+    {"id":"used_battery","item":"household_battery","label":"Used AA household battery","image_url":"/samples/used_battery.jpg"}
   ]
 }
 ```

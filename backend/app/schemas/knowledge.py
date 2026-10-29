@@ -133,4 +133,5 @@ class ImpactFactorTable(BaseModel):
 
     version: int = Field(ge=1)
     currency: str = Field(pattern="^INR$")
+    method_note: str = Field(min_length=20)
     factors: dict[str, ImpactFactor] = Field(min_length=12, max_length=15)

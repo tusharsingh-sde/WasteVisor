@@ -9,14 +9,17 @@ from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
+from app.api.demo import router as demo_router
 from app.api.health import router as health_router
 from app.api.identify import router as identify_router
 from app.api.items import router as items_router
 from app.api.recommend import router as recommend_router
 from app.api.tracking import router as tracking_router
 from app.core.config import Settings, get_settings
+from app.data.demo import SAMPLES_DIRECTORY, load_demo_fixtures
 from app.data.loader import load_startup_data
 from app.schemas.errors import ErrorDetail, ErrorEnvelope
 from app.services.history import HistoryStore
@@ -31,6 +34,7 @@ def create_app(settings_override: Settings | None = None) -> FastAPI:
     @asynccontextmanager
     async def lifespan(application: FastAPI) -> AsyncIterator[None]:
         application.state.knowledge_base, application.state.impact_factors = load_startup_data()
+        application.state.demo_fixtures = load_demo_fixtures()
         database_url = settings.database_url
         if not database_url:
             database_url = f"sqlite:///{Path(settings.db_path).as_posix()}"
@@ -54,6 +58,11 @@ def create_app(settings_override: Settings | None = None) -> FastAPI:
         allow_headers=["Content-Type", "Authorization"],
     )
     application.state.settings = settings
+    application.mount(
+        "/samples",
+        StaticFiles(directory=str(SAMPLES_DIRECTORY)),
+        name="demo-samples",
+    )
 
     @application.exception_handler(StarletteHTTPException)
     async def http_error_handler(_request: Request, exc: StarletteHTTPException) -> JSONResponse:
@@ -94,6 +103,7 @@ def create_app(settings_override: Settings | None = None) -> FastAPI:
         return JSONResponse(status_code=500, content=payload.model_dump())
 
     application.include_router(health_router, prefix="/api")
+    application.include_router(demo_router, prefix="/api")
     application.include_router(identify_router, prefix="/api")
     application.include_router(recommend_router, prefix="/api")
     application.include_router(items_router, prefix="/api")

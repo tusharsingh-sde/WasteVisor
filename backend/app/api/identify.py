@@ -38,6 +38,16 @@ async def identify(
     if len(image_bytes) > settings.max_upload_size_bytes:
         raise HTTPException(status_code=413, detail="The image exceeds the 5 MB upload limit.")
 
+    fixtures = request.app.state.demo_fixtures
+    if settings.demo_mode and sample_id:
+        fixture = fixtures.get(sample_id)
+        if fixture is None:
+            raise HTTPException(status_code=404, detail="The requested demo sample was not found.")
+        return IdentifyResponse(
+            identification=fixture.identification,
+            demo=DemoMetadata(is_demo=True, sample_id=fixture.id),
+        )
+
     identification = identify_image(
         image_bytes,
         content_type,

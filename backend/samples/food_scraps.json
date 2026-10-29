@@ -1,0 +1,14 @@
+{
+  "id": "food_scraps",
+  "label": "Household food scraps",
+  "image_filename": "food_scraps.jpg",
+  "identification": {
+    "item": "food_scraps",
+    "material": ["organic matter"],
+    "category": "organic",
+    "condition": "damaged",
+    "hazard_flags": [],
+    "confidence": 0.98,
+    "needs_confirmation": false
+  }
+}

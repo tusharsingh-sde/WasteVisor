@@ -128,3 +128,25 @@ def test_items_endpoint_lists_supported_conditions(client) -> None:
 
     assert len(items) == 14
     assert items["old_smartphone"]["conditions"] == ["working", "damaged", "dead", "unknown"]
+
+
+def test_demo_sample_list_and_cached_identification(client) -> None:
+    client.app.state.settings.demo_mode = True
+    sample_list = client.get("/api/demo/samples")
+    sample_ids = {sample["id"] for sample in sample_list.json()["samples"]}
+
+    assert sample_ids == {"smartphone_working", "food_scraps", "used_battery"}
+    image_response = client.get("/samples/smartphone_working.jpg")
+    assert image_response.status_code == 200
+    identification = client.post(
+        "/api/identify",
+        data={"sample_id": "smartphone_working"},
+        files={"image": ("smartphone.jpg", b"sample image bytes", "image/jpeg")},
+    )
+
+    assert identification.status_code == 200
+    assert identification.json()["identification"]["item"] == "old_smartphone"
+    assert identification.json()["demo"] == {
+        "is_demo": True,
+        "sample_id": "smartphone_working",
+    }

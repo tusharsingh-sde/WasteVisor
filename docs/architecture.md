@@ -56,7 +56,7 @@ backend/
 
 The designed contract is documented in [api.md](api.md). It includes `POST /api/identify`, `POST /api/recommend`, `POST /api/actions/complete`, `GET /api/history`, `GET /api/impact`, `GET /api/items`, `GET /api/health`, and `GET /api/demo/samples`. All errors use the same JSON envelope; FastAPI-generated `/docs` must match these typed schemas.
 
-Slices 1–5 implement all listed endpoints except `/api/demo/samples`, which is scheduled for Slice 6. SQLite history, identify/recommend, and catalog routes are mounted under `/api`.
+Slices 1–6 implement the listed endpoints, including `/api/demo/samples`. SQLite history, identify/recommend, catalog, and demo routes are mounted under `/api`; sample photos are served from `/samples/`.
 
 At application startup, `app/data/loader.py` validates `knowledge_base.yaml` and `impact_factors.yaml` with Pydantic v2 and checks that both files cover the same 14 item identifiers. Each item-condition points to an explicit rule set with ordered priorities and stable reason codes. Every factor row includes a written source/assumption note.
 

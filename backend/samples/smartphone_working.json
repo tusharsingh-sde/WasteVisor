@@ -1,0 +1,14 @@
+{
+  "id": "smartphone_working",
+  "label": "Working old smartphone",
+  "image_filename": "smartphone_working.jpg",
+  "identification": {
+    "item": "old_smartphone",
+    "material": ["glass", "aluminum", "lithium_ion_battery"],
+    "category": "e_waste",
+    "condition": "working",
+    "hazard_flags": ["contains_battery"],
+    "confidence": 0.96,
+    "needs_confirmation": false
+  }
+}

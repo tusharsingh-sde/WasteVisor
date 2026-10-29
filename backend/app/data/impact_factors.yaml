@@ -1,88 +1,94 @@
 version: 1
 currency: INR
+method_note: >-
+  kg_diverted is an assumed item/material mass kept out of mixed disposal. CO2e saved is a
+  separate scenario estimate: for reusable/resalable durable goods it approximates avoided
+  new-item manufacturing, not a conversion from the item's diverted mass. Material recovery
+  and compost rows use illustrative processing assumptions. These are not measured lifecycle
+  assessments and are not action-specific measurements.
 factors:
   old_smartphone:
     kg_diverted: 0.18
     co2e_saved_kg: 35.0
     estimated_value_inr: {min: 1000, max: 8000}
     effort_minutes: 30
-    source_note: "Prototype assumption: indicative mass and reuse benefit; value varies substantially by model and condition. Not a market quote or measured lifecycle result."
+    source_note: "Prototype assumption: kg diverted is estimated phone mass; CO2e assumes possible avoided replacement-phone manufacturing from reuse/resale, not a mass conversion. Value varies by model/condition; not a quote or measured lifecycle result."
   computer_accessories:
     kg_diverted: 2.0
     co2e_saved_kg: 25.0
     estimated_value_inr: {min: 0, max: 15000}
     effort_minutes: 35
-    source_note: "Prototype assumption for a mixed laptop/accessory group; ranges are illustrative and depend on the specific device."
+    source_note: "Prototype assumption: kg diverted is estimated item mass; CO2e assumes possible avoided replacement-device manufacturing from reuse/resale, not a mass conversion. Range varies by device; no measured lifecycle result."
   household_battery:
     kg_diverted: 0.05
     co2e_saved_kg: 0.5
     estimated_value_inr: {min: 0, max: 0}
     effort_minutes: 15
-    source_note: "Prototype assumption for one household battery; impact is an illustrative avoided-mismanagement estimate, not a verified lifecycle assessment."
+    source_note: "Prototype assumption: kg diverted is estimated battery mass; CO2e is a conservative handling scenario and claims no avoided new-battery manufacturing benefit. Not a verified lifecycle assessment."
   household_bulb:
     kg_diverted: 0.2
     co2e_saved_kg: 0.3
     estimated_value_inr: {min: 0, max: 20}
     effort_minutes: 15
-    source_note: "Prototype assumption for one CFL/LED bulb; CFL handling may require a local special-waste route."
+    source_note: "Prototype assumption: kg diverted is estimated bulb mass; CO2e is an illustrative material-handling/recovery scenario, not avoided new-device manufacturing or measured lifecycle data. CFL may need special handling."
   pet_bottle:
     kg_diverted: 0.03
     co2e_saved_kg: 0.08
     estimated_value_inr: {min: 0, max: 2}
     effort_minutes: 5
-    source_note: "Prototype assumption for one empty PET bottle; scrap value varies by locality and collection quality."
+    source_note: "Prototype assumption: kg diverted is estimated bottle mass; CO2e uses an illustrative PET recovery/processing assumption, not avoided new-device manufacturing. Scrap value varies locally."
   glass_bottle:
     kg_diverted: 0.3
     co2e_saved_kg: 0.05
     estimated_value_inr: {min: 0, max: 2}
     effort_minutes: 5
-    source_note: "Prototype assumption for one bottle; reuse benefit is preferred where safe and practical."
+    source_note: "Prototype assumption: kg diverted is estimated bottle mass; CO2e uses an illustrative safe-reuse/material recovery scenario, not a measured manufacturing avoidance."
   cardboard_box:
     kg_diverted: 0.5
     co2e_saved_kg: 0.4
     estimated_value_inr: {min: 0, max: 10}
     effort_minutes: 5
-    source_note: "Prototype assumption for one household box; value depends on size, dryness, and local scrap collection."
+    source_note: "Prototype assumption: kg diverted is estimated box mass; CO2e uses an illustrative cardboard reuse/recovery processing scenario, not avoided new-device manufacturing. Local scrap value varies."
   paper:
     kg_diverted: 0.5
     co2e_saved_kg: 0.4
     estimated_value_inr: {min: 0, max: 15}
     effort_minutes: 5
-    source_note: "Prototype assumption for a small bundle of dry paper; local scrap prices vary."
+    source_note: "Prototype assumption: kg diverted is estimated dry-paper mass; CO2e uses an illustrative paper recovery/processing scenario, not avoided new-device manufacturing. Local scrap value varies."
   clothing:
     kg_diverted: 1.0
     co2e_saved_kg: 5.0
     estimated_value_inr: {min: 0, max: 1000}
     effort_minutes: 20
-    source_note: "Prototype assumption for one garment; resale/donation eligibility depends on cleanliness, condition, and local options."
+    source_note: "Prototype assumption: kg diverted is estimated garment mass; CO2e assumes possible avoided new-clothing production from reuse/resale, not a conversion from garment mass. Eligibility depends on condition and local options."
   food_scraps:
     kg_diverted: 0.5
     co2e_saved_kg: 0.5
     estimated_value_inr: {min: 0, max: 0}
     effort_minutes: 10
-    source_note: "Prototype assumption per half-kilogram of household food scraps composted; outcome varies with process and baseline disposal."
+    source_note: "Prototype assumption: kg diverted is estimated food-scrap mass; CO2e is an illustrative composting-versus-baseline-disposal scenario, not avoided new-device manufacturing. Outcome varies by process."
   cooking_oil:
     kg_diverted: 0.5
     co2e_saved_kg: 0.2
     estimated_value_inr: {min: 0, max: 25}
     effort_minutes: 15
-    source_note: "Prototype assumption per half-litre-equivalent collection; do not reuse oil that is degraded, and never pour it into drains."
+    source_note: "Prototype assumption: kg diverted is estimated used-oil mass; CO2e is an illustrative collection/handling scenario, not avoided new-device manufacturing. Do not reuse degraded oil or pour it into drains."
   medicine_strips:
     kg_diverted: 0.02
     co2e_saved_kg: 0.0
     estimated_value_inr: {min: 0, max: 0}
     effort_minutes: 10
-    source_note: "Prototype assumption for one small pack; no carbon benefit is claimed. Use an authorized take-back route where available."
+    source_note: "Prototype assumption: kg diverted is estimated pack mass; CO2e is zero because no defensible carbon benefit is claimed. Use an authorized medicine take-back route where available."
   small_appliance:
     kg_diverted: 2.0
     co2e_saved_kg: 8.0
     estimated_value_inr: {min: 0, max: 1500}
     effort_minutes: 25
-    source_note: "Prototype assumption for one small appliance; recovery and resale depend on type, condition, and verified local channels."
+    source_note: "Prototype assumption: kg diverted is estimated appliance mass; CO2e assumes possible avoided replacement-appliance manufacturing from reuse/repair, not a mass conversion. Resale depends on item and verified local channels."
   furniture:
     kg_diverted: 15.0
     co2e_saved_kg: 20.0
     estimated_value_inr: {min: 0, max: 10000}
     effort_minutes: 45
-    source_note: "Prototype assumption for a small household furniture item; mass, reuse impact, and resale value vary by item and condition."
+    source_note: "Prototype assumption: kg diverted is estimated furniture mass; CO2e assumes possible avoided new-furniture production from reuse/resale, not a conversion from mass. Value and avoidance vary by item and condition."
 
