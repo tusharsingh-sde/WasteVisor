@@ -1,0 +1,2 @@
+"""WasteVisor backend application package."""
+

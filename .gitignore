@@ -1,6 +1,11 @@
 # .gitignore
 node_modules/
+.venv/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.db
 .env
 *.log
-# Exclude internal documentation not needed for open source
 AGENTS.node_modules

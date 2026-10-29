@@ -9,15 +9,15 @@
 - [x] Inspect repository, current stack, scripts, environment template, and tests.
 - [x] Record existing JavaScript project as legacy context; no edits to it.
 - [x] Specify the API contract and concise architecture/decision docs.
-- [ ] Review Phase 0 documents and confirm scope before implementation.
+- [x] Review Phase 0 documents and confirm scope before implementation.
 
 ## Proposed implementation slices
 
 ### Slice 1 — Backend skeleton, schemas, API contract (2–5 h)
 
-- [ ] Create `backend/`, Python virtual environment, `requirements.txt`, FastAPI app, settings, typed error envelope, localhost CORS.
+- [x] Create `backend/`, Python virtual environment, `requirements.txt`, FastAPI app, settings, typed error envelope, localhost CORS.
 - [ ] Implement Pydantic v2 request/response models and `/api/health`, `/api/items`, `/api/demo/samples`.
-- [ ] Verify generated `/docs` against `docs/api.md`; add API/schema tests.
+- [x] Verify generated `/docs` against `docs/api.md`; add API/schema tests.
 
 ### Slice 2 — Knowledge base, ranking, impact factors (5–10 h)
 
