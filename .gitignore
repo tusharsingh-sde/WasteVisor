@@ -22,4 +22,12 @@ htmlcov/
 .env.*
 !.env.example
 *.log
-AGENTS.node_modules
+# Agent context & planning
+docs/
+project_context/
+project_context
+plan.md
+PLAN.md
+agents.md
+AGENTS.md
+
