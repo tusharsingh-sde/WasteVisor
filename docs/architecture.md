@@ -60,6 +60,8 @@ At application startup, `app/data/loader.py` validates `knowledge_base.yaml` and
 
 `app/services/ranking.py` selects and orders only eligible actions, applies active-hazard overrides, and uses fixed templates for reasons and next steps. `app/services/impact.py` returns the catalog item's factor values with `is_estimate: true` and the assumption note; unsupported items request confirmation and receive safe general guidance without fabricated figures.
 
+`app/services/vision.py` wraps boto3 Bedrock Converse. It accepts JPEG, PNG, or WebP bytes, requests strict JSON for a known catalog ID, validates with Pydantic, retries malformed output or provider failures once, and returns a safe unknown result with `needs_confirmation: true` on final failure. Runtime settings are read from process environment only; the backend does not auto-load dotenv files.
+
 ## Storage and configuration
 
 Use SQLite for completed actions if it fits the schedule; local JSON is the documented fallback. No auth, microservices, MongoDB, or heavy infrastructure. Read secrets and feature flags from environment configuration and ship only `.env.example`. Enable localhost CORS for a future frontend.

@@ -27,10 +27,11 @@ Decision records for the backend-only hackathon phase. Implementation has not st
 
 ## ADR-004 — Put model calls behind a provider interface
 
-- **Status:** Proposed for implementation.
+- **Status:** Implemented in Slice 4; API integration is in Slice 5.
 - **Decision:** Keep vision integration in `app/services/vision.py` behind a small interface, using an official Python SDK or `httpx`.
 - **Alternatives:** Couple routes directly to one provider; use the existing JavaScript Bedrock module.
 - **Why:** The provider can be replaced or mocked in tests without changing the API. Existing JavaScript model code is explicitly out of scope.
+- **Implementation:** Uses boto3 Bedrock Converse with a strict JSON identification prompt, catalog IDs, Pydantic validation, one retry, and a confirmation-required low-confidence fallback. Provider error details are never returned to clients.
 
 ## ADR-005 — Start with local persistence
 
