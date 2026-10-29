@@ -14,9 +14,7 @@ def test_catalog_covers_supported_conditions_and_prioritized_rules() -> None:
             rules = knowledge.rule_sets[rule_set_name]
             assert rules
             assert all(rule.reason_code for rule in rules)
-            assert [rule.priority for rule in rules] == sorted(
-                rule.priority for rule in rules
-            )
+            assert [rule.priority for rule in rules] == sorted(rule.priority for rule in rules)
 
 
 def test_every_catalog_item_has_documented_estimate_factors() -> None:
@@ -26,4 +24,3 @@ def test_every_catalog_item_has_documented_estimate_factors() -> None:
     validate_data_pair(knowledge, factors)
     assert set(knowledge.items) == set(factors.factors)
     assert all(factor.source_note for factor in factors.factors.values())
-

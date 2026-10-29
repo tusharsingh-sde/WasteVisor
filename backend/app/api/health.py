@@ -18,4 +18,3 @@ def health_check() -> HealthResponse:
         model_available=bool(settings.bedrock_model_id),
         storage="sqlite",
     )
-

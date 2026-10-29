@@ -19,7 +19,7 @@ Decision records for the backend-only hackathon phase. Implementation has not st
 
 ## ADR-003 — Rules determine eligible actions and ranking
 
-- **Status:** Implemented in Slice 2 data; ranking execution is Slice 3.
+- **Status:** Implemented in Slices 2–3.
 - **Decision:** Load a small validated YAML/JSON item-condition knowledge base and rank eligible actions deterministically. A vision/LLM provider identifies the item; an LLM may phrase explanations only, with template fallback.
 - **Alternatives:** Ask the LLM to directly choose the best action; train a custom ranking model.
 - **Why:** Rules are auditable, testable for every supported item/condition, and safer for hazardous waste within a 24-hour build.
@@ -50,7 +50,7 @@ Decision records for the backend-only hackathon phase. Implementation has not st
 
 ## ADR-007 — Document and label estimates
 
-- **Status:** Implemented in Slice 2 factor data; API labeling is pending.
+- **Status:** Implemented in Slices 2–3; API response integration is pending.
 - **Decision:** Keep value/impact factors in a documented table with source or assumption per row. Return figures with `is_estimate: true`; use null rather than unsupported precision.
 - **Alternatives:** Hard-code plausible-looking constants in ranking code; omit provenance.
 - **Why:** Prevents estimates from being mistaken for measured facts and makes assumptions auditable.

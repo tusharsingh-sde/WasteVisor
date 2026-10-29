@@ -23,7 +23,7 @@
 
 - [x] Add 12–15 supported item definitions and condition-specific eligible actions in validated YAML/JSON.
 - [x] Add documented impact/value factors; all outputs labeled `is_estimate: true`.
-- [ ] Implement deterministic ranking, hazard overrides, unknown-item safe fallback, and matrix tests for every item/condition.
+- [x] Implement deterministic ranking, hazard overrides, unknown-item safe fallback, and matrix tests for every item/condition.
 
 ### Slice 3 — Identification and recommendations (10–15 h)
 

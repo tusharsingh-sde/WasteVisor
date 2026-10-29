@@ -58,6 +58,8 @@ The designed contract is documented in [api.md](api.md). It includes `POST /api/
 
 At application startup, `app/data/loader.py` validates `knowledge_base.yaml` and `impact_factors.yaml` with Pydantic v2 and checks that both files cover the same 14 item identifiers. Each item-condition points to an explicit rule set with ordered priorities and stable reason codes. Every factor row includes a written source/assumption note.
 
+`app/services/ranking.py` selects and orders only eligible actions, applies active-hazard overrides, and uses fixed templates for reasons and next steps. `app/services/impact.py` returns the catalog item's factor values with `is_estimate: true` and the assumption note; unsupported items request confirmation and receive safe general guidance without fabricated figures.
+
 ## Storage and configuration
 
 Use SQLite for completed actions if it fits the schedule; local JSON is the documented fallback. No auth, microservices, MongoDB, or heavy infrastructure. Read secrets and feature flags from environment configuration and ship only `.env.example`. Enable localhost CORS for a future frontend.

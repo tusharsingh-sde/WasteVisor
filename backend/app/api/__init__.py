@@ -1,2 +1,1 @@
 """WasteVisor API routers."""
-

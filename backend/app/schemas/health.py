@@ -10,4 +10,3 @@ class HealthResponse(BaseModel):
     demo_mode: bool
     model_available: bool
     storage: str
-

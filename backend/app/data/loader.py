@@ -48,4 +48,3 @@ def load_startup_data() -> tuple[KnowledgeBase, ImpactFactorTable]:
     factors = load_impact_factors()
     validate_data_pair(knowledge, factors)
     return knowledge, factors
-

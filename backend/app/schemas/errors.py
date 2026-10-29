@@ -25,4 +25,3 @@ class ErrorEnvelope(BaseModel):
     )
 
     error: ErrorDetail
-

@@ -45,9 +45,7 @@ def create_app() -> FastAPI:
     )
 
     @application.exception_handler(StarletteHTTPException)
-    async def http_error_handler(
-        _request: Request, exc: StarletteHTTPException
-    ) -> JSONResponse:
+    async def http_error_handler(_request: Request, exc: StarletteHTTPException) -> JSONResponse:
         code = {
             400: "bad_request",
             404: "not_found",
@@ -56,9 +54,7 @@ def create_app() -> FastAPI:
             503: "service_unavailable",
         }.get(exc.status_code, "request_error")
         message = (
-            exc.detail
-            if isinstance(exc.detail, str)
-            else "The request could not be completed."
+            exc.detail if isinstance(exc.detail, str) else "The request could not be completed."
         )
         payload = ErrorEnvelope(error=ErrorDetail(code=code, message=message))
         return JSONResponse(status_code=exc.status_code, content=payload.model_dump())
@@ -91,4 +87,3 @@ def create_app() -> FastAPI:
 
 
 app = create_app()
-

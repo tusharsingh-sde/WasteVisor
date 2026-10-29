@@ -50,4 +50,3 @@ def test_startup_loads_validated_catalog_and_estimate_factors() -> None:
         assert set(client.app.state.knowledge_base.items) == set(
             client.app.state.impact_factors.factors
         )
-
