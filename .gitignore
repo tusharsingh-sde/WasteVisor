@@ -1,11 +1,25 @@
 # .gitignore
 node_modules/
 .venv/
+venv/
+env/
+ENV/
 __pycache__/
+*.py[cod]
+*$py.class
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
 *.db
+*.sqlite
+*.sqlite3
 .env
+.env.*
+!.env.example
 *.log
 AGENTS.node_modules
